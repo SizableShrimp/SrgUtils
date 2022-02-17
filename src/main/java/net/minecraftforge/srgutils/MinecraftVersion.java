@@ -176,6 +176,14 @@ public class MinecraftVersion implements Comparable<MinecraftVersion> {
             this.type = Type.SNAPSHOT;
             this.nearest = splitDots(fromSnapshot(this.year, this.week));
             this.pre = 0;
+        } else if (version.contains("_experimental_snapshot")) {
+            this.year = -1;
+            this.week = -1;
+            this.type = Type.RELEASE;
+            int idx = version.indexOf('_');
+            this.revision = version.substring(idx + 1);
+            this.nearest = splitDots(version.substring(0, idx));
+            this.pre = 0;
         } else {
             this.week = -1;
             this.year = -1;
